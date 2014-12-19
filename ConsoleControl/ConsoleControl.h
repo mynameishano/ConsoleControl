@@ -39,31 +39,3 @@ public:
     int getChar();
     char* getString(int, int, int);
 };
-
-//#include <windows.h>
-//#include <conio.h>
-//
-//class consolecontrol
-//{
-//private:
-//    handle hstdout;
-//    console_screen_buffer_info bufinfo;
-//    int currows;
-//    int curcols;
-//    int bufrows;
-//    int bufcols;
-//    char* scrbuf;
-//    char* capbuf;
-//    void clrmemscr();
-//public:
-//    consolecontrol();
-//    ~consolecontrol();
-//    void clearscr();
-//    void getcurpos(int*, int*);
-//    void setcurpos(int, int);
-//    int getchar();
-//    void putchar(int);
-//    void putstring(const char*);
-//    char* capturescr();
-//    void restorescr();
-//};
