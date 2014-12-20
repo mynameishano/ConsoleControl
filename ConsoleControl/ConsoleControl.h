@@ -1,7 +1,7 @@
 #include <Windows.h>
 #include <conio.h>
 
-#define MAX_ROWS 29
+#define MAX_ROWS 24
 #define MAX_COLS 79
 
 class ConsoleControl {
@@ -34,8 +34,12 @@ public:
     // drawing frames (only border)
     int drawFrame(int, int, int, int, char*);
     // I-O methods
-    void putChar(const int);
+    void putChar(int);
+    void putChar(int, int, int);
     void putString(const char*);
+    void putString(const char*, int, int);
     int getChar();
     char* getString(int, int, int);
 };
+
+int getStrLen(const char*);

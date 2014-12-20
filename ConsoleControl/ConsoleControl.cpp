@@ -44,7 +44,7 @@ void ConsoleControl::clearScr() {
     clearScrBuf();
 }
 
-void ConsoleControl::getCurPos(int *x, int *y) {
+void ConsoleControl::getCurPos(int *y, int *x) {
     // get screen buffer info
     GetConsoleScreenBufferInfo(hStdout, &bufInfo);
     // get cursor position
@@ -52,7 +52,7 @@ void ConsoleControl::getCurPos(int *x, int *y) {
     *y = (int)bufInfo.dwCursorPosition.Y;
 }
 
-void ConsoleControl::setCurPos(int x, int y) {
+void ConsoleControl::setCurPos(int y, int x) {
     // set cursor position
     SetConsoleCursorPosition(hStdout, { x, y });
 }
@@ -97,13 +97,28 @@ int ConsoleControl::drawFrame(int x, int y, int height, int width, char* border 
     return flag;
 }
 
-void ConsoleControl::putChar(const int c) {
+// get char and print it out
+void ConsoleControl::putChar(int c) {
     _putch(c);
 }
 
+// get char and put it into scrBuf
+void ConsoleControl::putChar(int c, int x, int y) {
+    scrBuf[x*bufCols + y] = c;
+}
+
+// get string and print it out
 void ConsoleControl::putString(const char* str) {
     for (int i = 0; str[i]; i++)
-        _putch(str[i]);
+        putChar(str[i]);
+}
+
+// get string and put into scrBuf
+void ConsoleControl::putString(const char* str, int x, int y) {
+    if (getStrLen(str) + y <= bufCols) {
+        for (int i = 0; str[i]; i++)
+            scrBuf[x*bufCols + y + i] = str[i];
+    }
 }
 
 int ConsoleControl::getChar() {
@@ -114,4 +129,10 @@ int ConsoleControl::getChar() {
 char* ConsoleControl::getString(int x, int y, int len) {
     // ...
     return 0;
+}
+
+int getStrLen(const char* str) {
+    int i;
+    for (i = 0; str[i] != '\0'; i++);
+    return i;
 }
